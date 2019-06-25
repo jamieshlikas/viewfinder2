@@ -37,9 +37,23 @@ var photos : [Photos] = []
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return photos.count
-    }
-
+        
+}
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "detailSegue", sender: photos[indexPath.row])
+    }
+    
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detailSegue" {
+        if let photoDetailView = segue.destination as? PhotoDetailViewController{
+            if let photoToSend = sender as? Photos {
+                photoDetailView.photo = photoToSend
+                }
+            }
+        }
+    }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       
     let cell = UITableViewCell()
